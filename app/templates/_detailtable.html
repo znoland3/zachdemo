@@ -1,0 +1,24 @@
+<div class="table_container col-xs-12 col-md-10 col-md-offset-1">
+    <div class="chart_title">Element Details</div>
+    <table class="element_table">
+        <tr class="header_row">
+            <td>Element</td>
+            <td>Count</td>
+            <td>Text Contents</td>
+        </tr>
+        {% for e in elements %}
+            <tr class="element_parent">
+                <td class="name">{{ e.name }}</td>
+                <td>{{ e.count }}</td>
+                <td class="arrow"><i class="fa fa-caret-right"></i></td>
+            </tr>
+            {% for d in e.details %}
+                <tr class="{{ e.name }} detail_row">
+                    <td></td>
+                    <td></td>
+                    <td>{{ d }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+</div>
