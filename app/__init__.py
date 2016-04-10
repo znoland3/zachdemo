@@ -2,11 +2,13 @@ from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask.ext.moment import Moment
+from flask.ext.sqlalchemy import SQLAlchemy
 from config import config
 
 # Create unitialized extentions
 bootstrap = Bootstrap()
 mail = Mail()
+db = SQLAlchemy()
 moment = Moment()
 
 def create_app(config_name):
@@ -18,6 +20,7 @@ def create_app(config_name):
     # Initialize Extentions
     bootstrap.init_app(app)
     mail.init_app(app)
+    db.init_app(app)
     moment.init_app(app)
 
     from .main import main as main_blueprint

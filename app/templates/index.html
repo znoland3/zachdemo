@@ -21,6 +21,27 @@
 </div>
 <div class="container">
 
+    <div class="stat_container col-xs-12 col-md-3 col-md-offset-1">
+        <div class="stat_title">Element Count</div>
+        <div class="stat_shell">
+            <div class="stat_wrapper">
+                <div class="stat_value">{{ totalCount }}</div>
+                <div class="stat_name">Total</div>
+            </div>
+        </div>
+        <div class="stat_shell">
+            <div class="stat_wrapper">
+                <div class="stat_value">{{ uniqueCount }}</div>
+                <div class="stat_name">Unique</div>
+            </div>
+        </div>
+    </div>
+    <div class="avg_container col-xs-12 col-md-7">
+        <div class="bullet_wrapper">
+            <svg class="bulletchart"></svg>
+        </div>
+    </div>
+
     <div class="chart_container col-xs-12 col-md-5 col-md-offset-1 volume_chart">
         <div class="chart_shell">
             <div class="chart_title">Elements By Volume</div>

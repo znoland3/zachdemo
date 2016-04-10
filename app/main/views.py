@@ -19,7 +19,7 @@ def index():
             session['element_data'] = scrp.scrape()
         except:
             flash("This website cannot be scraped: %s" % (form.website.data))
-            form.website.data = "https://www.google.com/"
+            form.website.data = "https://www.google.com"
             scrp = scraper.Scraper(form.website.data)
             session['element_data'] = scrp.scrape()
             return redirect(url_for('.index'))
@@ -28,12 +28,15 @@ def index():
     if form.validate_on_submit():
         scrape(form)
 
-    #Scrape Default site
+    # Scrape Default site
     else:
-        form.website.data = "https://www.google.com/"
+        form.website.data = "https://www.google.com"
         scrape(form)
 
-    return render_template('index.html', form=form, elements=session['element_data']['list'])
+    return render_template('index.html', form=form,
+                           elements=session['element_data']['list'],
+                           totalCount=session['element_data']['totalCount'],
+                           uniqueCount=session['element_data']['uniqueCount'])
 
 
 @main.route('/getchartdata', methods=['GET', 'POST'])

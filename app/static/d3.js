@@ -4,6 +4,65 @@ generates charts
 ====================
 */
 
+
+/*################### Bullet Chart #####################*/
+d3.json("/getchartdata", function(error, json) {
+    if (error) return console.warn(error);
+
+    var data;
+    data = [{'name' : 'Hist. Avg',         'class' : "avg_b",     'height' : 40, 'top' : 15, 'count' : json['histAvg']},
+            {'name' : json['websiteName'], 'class' : "current_b", 'height' : 16, 'top' : 27, 'count' : json['totalCount']}];
+
+    var width = 600,
+        height = 70;
+
+    var x = d3.scale.linear()
+        .domain([0, d3.max(data, function(d) { return d.count })])
+        .range([0, width - 40 ]);
+
+    var chart = d3.select(".bulletchart")
+        .attr("width", width)
+        .attr("height", height);
+
+    var bar = chart.selectAll("g")
+        .data(data)
+       .enter().append("g")
+        .attr("transform", function(d) { return "translate(0," + d.top + ")"});
+
+    bar.append("rect")
+        .attr("class", function(d) { return d.class })
+        .attr("height", function(d) { return d.height })
+        .attr("width", 0)
+       .transition()
+        .delay(function(d, i) { return i * 100 })
+		.duration(1000)
+		.ease("elastic")
+        .attr("width", function(d) { return x(d.count) });
+
+    bar.append("text")
+        .attr("x", 2)
+        .attr("y", 12)
+        .text(function(d) { return d.name });
+
+    bar.append("text")
+        .attr("x", function(d) { return x(d.count) - (d.count.toString().length * 7) })
+        .attr("y", 12)
+        .text(function(d) { return d.count });
+
+    // Adjust Avg label + count
+    bar.select("rect.avg_b + text")
+        .attr("y", -5);
+    bar.select("rect.avg_b + text + text")
+        .attr("y", -4);
+
+    // Adjust Current label
+    bar.select("rect.current_b + text")
+        .attr("x", 5);
+
+});
+
+
+
 /*################### Bar Chart #####################*/
 d3.json("/getchartdata", function(error, json) {
     if (error) return console.warn(error);
@@ -25,7 +84,7 @@ d3.json("/getchartdata", function(error, json) {
     var bar = chart.selectAll("g")
         .data(data)
       .enter().append("g")
-        .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")";});
+        .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")" });
 
     bar.append("rect")
         .attr("height", barHeight - 1)
@@ -38,7 +97,6 @@ d3.json("/getchartdata", function(error, json) {
 
     bar.append("text")
         .attr("x", 4)
-        .attr("y". barHeight / 2)
         .attr("dy", ".9em")
         .attr("class", "count")
         .text(function(d) { return d.count; });
@@ -53,6 +111,7 @@ d3.json("/getchartdata", function(error, json) {
         .attr("y". barHeight / 2)
         .attr("dy", ".9em")
         .text(function(d) { return d.name; });
+
 
 });
 
