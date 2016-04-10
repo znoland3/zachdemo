@@ -13,8 +13,13 @@ d3.json("/getchartdata", function(error, json) {
     data = [{'name' : 'Hist. Avg',         'class' : "avg_b",     'height' : 40, 'top' : 15, 'count' : json['histAvg']},
             {'name' : json['websiteName'], 'class' : "current_b", 'height' : 16, 'top' : 27, 'count' : json['totalCount']}];
 
-    var width = 600,
-        height = 70;
+    if (window.innerWidth < 1200) {
+        var width = 400;
+    } else {
+        var width = 600;
+    };
+
+    var height = 70;
 
     var x = d3.scale.linear()
         .domain([0, d3.max(data, function(d) { return d.count })])
