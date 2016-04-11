@@ -13,7 +13,9 @@ d3.json("/getchartdata", function(error, json) {
     data = [{'name' : 'Hist. Avg',         'class' : "avg_b",     'height' : 40, 'top' : 15, 'count' : json['histAvg']},
             {'name' : json['websiteName'], 'class' : "current_b", 'height' : 16, 'top' : 27, 'count' : json['totalCount']}];
 
-    if (window.innerWidth < 1200) {
+    if (window.innerWidth < 400) {
+        var width = 250;
+    } else if (window.innerWidth < 1200) {
         var width = 400;
     } else {
         var width = 600;

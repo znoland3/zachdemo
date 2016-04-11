@@ -232,8 +232,25 @@ Home Page
 .bullet_wrapper {
     margin-left:auto;
     margin-right: auto;
-    width:600px;
     padding-top: 8px;
+}
+@media (max-width:400px) {
+    .bullet_wrapper {
+         width:250px;
+    }
+    .current_b + text {
+        fill:none !important;
+    }
+}
+@media (min-width:400px) {
+    .bullet_wrapper {
+         width:400px;
+    }
+}
+@media (min-width:1200px) {
+    .bullet_wrapper {
+         width:600px;
+    }
 }
 .current_b {
     fill: #fff;
